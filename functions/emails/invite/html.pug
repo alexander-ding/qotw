@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+  head
+    title QOTW: Invite to Register
+  body
+    div
+      p 
+        | You have been invited to register a non-Commonwealth account for Quote of the Week. Click 
+        a(href=`${baseUrl}/Register/${email}`) here
+        |  or visit the link #{baseUrl}/Register/#{email} to complete your registration.
+      p 
+        | This email was sent because you have contacted a Quotemaster to invite you. If you didn't do so, please email 
+        a(href=`mailto:${supportEmail}`) #{supportEmail}
+        |  to report this.

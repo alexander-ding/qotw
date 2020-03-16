@@ -1,0 +1,33 @@
+{
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "algoliasearch": "^4.1.0",
+    "email-templates": "^7.0.4",
+    "firebase-admin": "^8.9.2",
+    "firebase-functions": "^3.3.0",
+    "fs": "0.0.1-security",
+    "nodemailer": "^6.4.4",
+    "package.json": "^2.0.1"
+  },
+  "devDependencies": {
+    "@firebase/testing": "^0.16.13",
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}

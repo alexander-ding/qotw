@@ -1,0 +1,21 @@
+.text-center {
+    text-align: center !important;
+}
+
+.login-background {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 80px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 300px; 
+    padding: 15px;
+    margin: auto;
+}
+
+.border-left {
+    border-left: 2px;
+}
