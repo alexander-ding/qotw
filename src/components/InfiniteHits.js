@@ -6,7 +6,6 @@ import Hit from './Hit';
 class InfiniteHits extends Component {
   onSentinelIntersection = entries => {
     const { hasMore, refineNext } = this.props;
-
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         refineNext()
@@ -26,7 +25,6 @@ class InfiniteHits extends Component {
   
   render() {
     const { hits } = this.props
-    console.log(hits)
     return (
       <div className="ais-InfiniteHits">
         <ListGroup>
@@ -38,7 +36,7 @@ class InfiniteHits extends Component {
           <div
             className="ais-InfiniteHits-sentinel"
             ref={c => (this.sentinel = c)}
-          />
+          ></div>
         </ListGroup>
       </div>
     );
