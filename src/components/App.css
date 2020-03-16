@@ -35,3 +35,7 @@
 .multi-line-display {
     white-space: pre-line;
 }
+
+.margin-0 {
+    margin: 0
+}

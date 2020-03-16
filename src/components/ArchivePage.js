@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch'
 import 'firebase/functions'
 import React from 'react'
-import { Configure, InstantSearch } from 'react-instantsearch-dom'
+import { Configure, InstantSearch, PoweredBy } from 'react-instantsearch-dom'
 import InfiniteHits from './InfiniteHits'
 import SearchBox from './SearchBox'
 
@@ -14,8 +14,9 @@ const ArchivePage = () => {
       <InstantSearch indexName="publications" searchClient={searchClient}>
         <Configure hitsPerPage={16} />
         <SearchBox />
-        <br/>
+        <PoweredBy className="row justify-content-end margin-0"/>
         <InfiniteHits minHitsPerPage={16} />
+        
       </InstantSearch>
     </div>
   )
