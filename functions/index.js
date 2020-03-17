@@ -430,9 +430,7 @@ exports.getQuotesOfEmail = functions.https.onCall((data, context) => {
     })
   }).catch(e => {throw e})
 })
-
 /*
-
 const runtimeOpts = {
   timeoutSeconds: 300,
   memory: '1GB'
@@ -487,19 +485,23 @@ exports.oneOff = functions.runWith(runtimeOpts).https.onRequest(async (data, con
   const readData = fs.readFileSync('quotes.json', 'utf-8')
   const json = JSON.parse(readData)
   const promises = json.map(({body, date, title}) => {
-    return admin.firestore().collection("emails").add({
-      content: body,
-      title: title,
-      date: new Date(date),
-    }).then(emailRef => {
-      admin.firestore().collection("publications").add({
-        datePublished: new Date(date),
-        email: emailRef, 
-        quotes: [],
-        status: "archived",
-        voters: [],
-      })
-      return 
+    console.log(title)
+    return admin.firestore().collection("publications").where('datePublished', '==', new Date(date)).get().then((snap) => {
+      const index = client.initIndex("publications")
+      console.log(snap.size)
+      index.deleteObject(snap.docs[0].id).catch(console.error)
+      const publication = snap.docs[0].data()
+      return publication.email.get().then((ret) => {
+        publication.email = Object.assign(ret.data(), {
+          id: ret.id
+        })
+        publication.objectID = snap.docs[0].id
+        return
+      }).then(() => {
+        index.saveObject(publication)
+        return
+      }).catch(e => {throw e})
+      
     }).catch(e => {
       throw e
     })
