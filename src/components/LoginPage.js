@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { isEmpty, withFirebase, withFirestore } from 'react-redux-firebase'
 import { Redirect, withRouter } from 'react-router-dom'
 import { compose, withState } from 'recompose'
-import logo from "../images/logo.svg"
+import logo from "../images/logo.png"
 import LoginForm from './LoginForm'
 import "./LoginPage.css"
 

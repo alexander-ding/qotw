@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { connect } from 'react-redux'
 import { isEmpty, useFirebase } from 'react-redux-firebase'
 import { Link, useHistory, withRouter } from 'react-router-dom'
-import logo from "../images/logo.svg"
+import logo from "../images/logo.png"
 
 const OurNavbar = ({location, auth, profile}) => {
   const firebase = useFirebase()
