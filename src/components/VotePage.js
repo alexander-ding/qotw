@@ -13,21 +13,16 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
 
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
 });
 
 const orderData = (data, userEmail) => {
@@ -70,7 +65,6 @@ class VotePage extends React.Component {
 
     getQuotes({status: "pending"}).then((result) => {
       const userEmail = this.firebase.auth().currentUser.email
-      console.log(result.data)
       this.setState({
         isLoaded: true,
         data: orderData(result.data, userEmail),
@@ -109,18 +103,14 @@ class VotePage extends React.Component {
           isPristine: false,
           isInEditMode: false,
         })
-      ).catch((error) =>
-        console.log(error)
-      )
+      ).catch(console.error)
     } else {
       const changeVote = this.firebase.functions().httpsCallable('changeVote');
       changeVote({votes, publicationID}).then(
         this.setState({
           isInEditMode: false,
         })
-      ).catch((error) => 
-        console.log(error)
-      )
+      ).catch(console.error)
     }
   }
 
@@ -145,10 +135,10 @@ class VotePage extends React.Component {
     return (
       <div className="main">
         <h1>Voting Time!</h1>
-        <small>Drag and drop to reorder the quotes, from your favorite to least.</small>
+        
         <DragDropContext onDragEnd={this.onDragEnd}>
         
-          <Droppable droppableId="droppable">
+          <Droppable droppableId="droppable" style={{padding: 0}}>
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
@@ -165,6 +155,8 @@ class VotePage extends React.Component {
           </ButtonGroup> :
           <ButtonGroup><Button onClick={this.handleEdit}>Edit</Button></ButtonGroup>
         }
+        <br/>
+        <small>Drag and drop to reorder the quotes, from your favorite to least.</small>
               {this.state.data.quotes.map((quote, index) => (
                 <Draggable key={quote.id} draggableId={quote.id} index={index} isDragDisabled={!this.state.isInEditMode}>
                   {(provided, snapshot) => (

@@ -59,7 +59,6 @@ const HistoryPage = ({firebase, firestore, auth, profile, quotes, data}) => {
   if (!isLoaded(quotes)) {
     return <SplashScreen/>
   }
-  console.log(data)
   const currentCycleQuotes = quotes.filter(quote => !quote.inPublication)
   const pastQuotes = quotes.filter(quote => quote.inPublication).sort((a,b) => a.submittedAt._seconds - b.submittedAt._seconds)
   const myQuotes = data

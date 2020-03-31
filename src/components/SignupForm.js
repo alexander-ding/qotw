@@ -9,7 +9,6 @@ const ReduxFormControl = ({input, meta, ...props}) => {
 }
 
 let SignupForm = ({pristine, submitting, handleSubmit, passwordsMatch}) => {
-  console.log(pristine, submitting, passwordsMatch)
   return (
   <Form onSubmit={handleSubmit}>
     <Form.Group controlId="signupForm.email">

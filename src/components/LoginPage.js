@@ -14,7 +14,6 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
       provider: 'google',
       type: 'popup',
     }).catch(e => {
-      console.log(e)
       switch (e.code) {
         case "auth/popup-closed-by-user":
           updateError("Pop up was closed by user. Try again?")

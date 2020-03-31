@@ -124,7 +124,6 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   const handleSend = () => {
     if (quotesUnapproved.length) {
       updateWarning("You must process all current submissions before publishing.")
-      console.log("Updating")
       return
     }
     updateShowConfirm(true)

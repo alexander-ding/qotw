@@ -35,7 +35,6 @@ const ProfilePage = ({firebase, firestore, auth, profile, changeInviteForm, disp
         setError(`${email} is not a registered QOTW account. Please log in to this website with that email at least once.`)
         return
       }
-      console.log(snapshot.docs[0])
       if (snapshot.docs[0].data().isModerator) {
         setError(`${email} is already a quotemaster.`)
         return
