@@ -33,7 +33,7 @@ const App = () => (
               <Route exact path="/"><HomePage/></Route>
               <Route exact path="/Archive"><ArchivePage/></Route>
               <Route exact path="/About"><AboutPage/></Route>
-              <Route path="/Submit"><SubmitQuotePage/></Route>
+              <PrivateRoute path="/Submit"><SubmitQuotePage/></PrivateRoute>
               <PrivateRoute path="/Vote"><VotePage/></PrivateRoute>
               <PrivateRoute path="/Profile"><ProfilePage/></PrivateRoute>
               <PrivateRoute path="/Console"><ConsolePage/></PrivateRoute>

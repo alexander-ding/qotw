@@ -142,7 +142,7 @@ const sendMailinglistEmail = async (data, context) => {
   email.send({
     template: "newsletter",
     message: {
-      bcc: recipientEmails,
+      to: recipientEmails,
     },
     locals: {
       content: content,

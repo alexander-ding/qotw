@@ -95,7 +95,7 @@ const HistoryPage = ({firebase, firestore, auth, profile, quotes, data}) => {
       </Tab>
       <Tab eventKey="quotes" title="My Quotes">
         <Card>
-          { data.length ? 
+          { myQuotes.length ? 
             <Card.Body>
               <div>
                 <Card.Text>Current Cycle</Card.Text>

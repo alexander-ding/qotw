@@ -51,9 +51,10 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
         <img src={logo} alt="logo" width="70" height="70" className="d-inline-block mb-4" style={{margin: 'auto'}}/>
         <h3 className="text-center mb-3">Please log in</h3>
         {error ? <Alert variant="danger">{error}</Alert> : null}
-        <div>
-          <h5 className="text-center">Commonwealth Students</h5>
+        <div className="text-center">
+          <h5>Commonwealth Students</h5>
           <Button block onClick={googleLogin}>Login with Google</Button>
+          <small id="emailHelp" class="form-text text-muted">Your submissions will be anonymous. Only the quotemasters can see who you are.</small>
         </div>
         <br/>
         <div className="text-center">

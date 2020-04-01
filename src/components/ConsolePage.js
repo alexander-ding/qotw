@@ -1,13 +1,13 @@
 
 import Icon from '@material-ui/core/Icon'
 import 'firebase/functions'
-import React from 'react'
+import React, { useState } from 'react'
 import { Alert, Button, ButtonGroup, ButtonToolbar, Card, Col, ListGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { firestoreConnect, isLoaded, withFirebase, withFirestore } from 'react-redux-firebase'
 import { useHistory } from 'react-router-dom'
 import { compose, lifecycle, withState } from 'recompose'
-import { change, getFormValues, submit } from 'redux-form'
+import { change, formValueSelector, getFormValues, submit } from 'redux-form'
 import { rankQuotes } from '../utils'
 import PublishForm from './PublishForm'
 import QuoteBase from './QuoteBase'
@@ -98,7 +98,7 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   showConfirm, updateShowConfirm,
 }) => {
   const history = useHistory()
-  
+  const state = useState()
 
   if (!isLoaded(auth) || !isLoaded(profile)) {
     return <SplashScreen/>
@@ -123,7 +123,10 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   const quotesApproved = quotes.filter(quote => quote.approvedByModerator)
 
   const handleSend = () => {
-    if (quotesUnapproved.length) {
+    
+    const selector = formValueSelector('publishForm')
+    
+    if (selector(state, 'publish') && quotesUnapproved.length) {
       updateWarning("You must process all current submissions before publishing.")
       return
     }
