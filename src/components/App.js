@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import AuthIsLoaded from '../utils/AuthIsLoaded'
 import PrivateRoute from '../utils/PrivateRoute'
 import AboutPage from './AboutPage'
+import AlumLoginPage from './AlumLoginPage'
 import './App.css'
 import ArchivePage from './ArchivePage'
 import ConsolePage from './ConsolePage'
@@ -22,6 +23,7 @@ const App = () => (
   <React.Fragment>
     <Switch>
       <Route path="/Login"><LoginPage/></Route>
+      <Route path="/AlumLogin"><AlumLoginPage/></Route>
       <Route path="/Register/:email"><RegisterPage/></Route>
       <Route path="*">
         <Navbar/>
