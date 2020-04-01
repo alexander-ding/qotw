@@ -113,10 +113,11 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   const formEmail = (publishForm ? publishForm.email : null)
   const formTitle = (publishForm ? publishForm.title : null)
   const formPublish = (publishForm ? publishForm.publish : false)
-  const emailToName = users.reduce((map, user) => {
+  let emailToName = users.reduce((map, user) => {
     map[user.email] = user.name
     return map
   }, {})
+  emailToName["anonymous"] = "Anonymous"
   
   const quotesUnapproved = quotes.filter(quote => !quote.approvedByModerator)
   const quotesApproved = quotes.filter(quote => quote.approvedByModerator)

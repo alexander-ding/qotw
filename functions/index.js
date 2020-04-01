@@ -268,12 +268,20 @@ exports.getQuotes = functions.https.onCall(async (data, context) => {
         id: snapshot.docs[0].id,
       })
     })
+  
+  const isModerator = (context.auth) ? (
+    await admin.firestore().collection('users').doc(context.auth.uid).get().then((doc) => {
+      return doc.data().isModerator
+    })) : false
 
   var promises = retData.quotes.map((quote, index) => {
     const promise = quote.get().then((ret) => {
       retData.quotes[index] = Object.assign(ret.data(), {
         id: ret.id
       })
+      if (!isModerator) {
+        delete retData.quotes[index].submittedBy
+      }
       return
     })
     return promise
@@ -307,11 +315,20 @@ exports.getQuotesByID = functions.https.onCall(async (data, context) => {
   }).catch( e => {
     throw e
   })
+
+  const isModerator = (context.auth) ? (
+    await admin.firestore().collection('users').doc(context.auth.uid).get().then((doc) => {
+      return doc.data().isModerator
+    })) : false
+
   var promises = retData.quotes.map((quote, index) => {
     const promise = quote.get().then((ret) => {
       retData.quotes[index] = Object.assign(ret.data(), {
         id: ret.id
       })
+      if (!isModerator) {
+        delete retData.quotes[index].submittedBy
+      }
       return
     })
     return promise

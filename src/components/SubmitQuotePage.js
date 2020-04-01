@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { connect } from 'react-redux'
-import { isLoaded, withFirestore } from 'react-redux-firebase'
+import { isEmpty, isLoaded, withFirestore } from 'react-redux-firebase'
 import { useHistory } from 'react-router-dom'
 import { compose } from 'recompose'
 import QuoteForm from './QuoteForm'
@@ -16,7 +16,7 @@ const SubmitQuotePage = ({firestore, auth}) => {
       quote: values,
       approvedByModerator: false,
       submittedAt: firestore.FieldValue.serverTimestamp(),
-      submittedBy: auth.email,
+      submittedBy: isEmpty(auth) ? "anonymous" : auth.email,
       votes: [],
       inPublication: false,
       nominated: false,
