@@ -6,10 +6,13 @@ class Vote {
   eliminate(i) { this.votes = this.votes.filter(v => (v !== i));}
 }
 
+// TODO: revisit voting code
+
 const preferentialVoting = (votes, length, candidates) => {
   var round = 0
   while (round < length) {
     var currentVotes = Array.apply(null, Array(length)).map((_, index) => ({index, vote: 0}))
+    console.log(currentVotes)
     votes.forEach((vote) => {
       if (!vote.exhausted()) {
         currentVotes[vote.currentVote()].vote += 1;
@@ -32,7 +35,8 @@ const preferentialVoting = (votes, length, candidates) => {
     })
     round += 1
   }
-  throw new Error("Voting is broken")
+  // then a tie, return any
+  return candidates[0]
 }
 
 const reassembleVotes = (quotes, length) => {
@@ -52,6 +56,7 @@ export const rankQuotes = (quotes) => {
     return quotes
   }
   var votes = reassembleVotes(quotes, quotes.length)
+  console.log(votes)
   var ranking = []
   var candidates = Array.apply(null, Array(quotes.length)).map((_, i) => i)
   do {
