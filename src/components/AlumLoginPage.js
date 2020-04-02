@@ -32,7 +32,7 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
 
   return (
     <Container fluid className="login-background">
-    <Alert variant="info">To acquire an alumni account, please contact a current quotemaster via <a href="mailto:qotw@qotw.net?Subject=Alumni%20Email%20Request" target="_top">cws.qotw@gmail.com</a></Alert>
+    <Alert variant="info">To acquire an alumni account, please contact a current quotemaster via <a href="mailto:qotw@qotw.net?Subject=Alumni%20Email%20Request" target="_top">qotw@qotw.net</a></Alert>
       <div className="login-container d-flex flex-column">
         
         <img src={logo} alt="logo" width="70" height="70" className="d-inline-block mb-4" style={{margin: 'auto'}}/>
