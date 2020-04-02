@@ -3,13 +3,13 @@ html(lang='en')
   head
     title QOTW: #{title}
     style.
-      p.template {white-space: pre-wrap;}
+      pre.template {font: initial;}
       footer { margin: 35px 0 15px 0; text-align: center; }
   body
     div
-      p.template #{content}
+      pre.template #{content}
   footer
-    p 
+    p
       | You're receiving this email because you're subscribed to the QOTW mailing list. To unsubscribe, visit your 
       a(href=`${baseUrl}/Profile`) profile page
       |.

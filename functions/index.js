@@ -125,7 +125,6 @@ const sendMailinglistEmail = async (data, context) => {
   } catch (e) {
     throw new functions.https.HttpsError("invalid-argument", `Must supply content and title as arguments`)
   }
-  
   const recipientEmails = await admin.firestore().collection('users').where('isNewsletterSubscribe', '==', true).get()
     .then((snapshot) => {
       const recipientEmails = snapshot.docs.map(doc => doc.data().email)
@@ -142,7 +141,7 @@ const sendMailinglistEmail = async (data, context) => {
   email.send({
     template: "newsletter",
     message: {
-      to: recipientEmails,
+      to: ['alding@commschool.org'],
     },
     locals: {
       content: content,
