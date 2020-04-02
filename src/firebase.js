@@ -7,7 +7,7 @@ import { createFirestoreInstance, reduxFirestore } from 'redux-firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBpgw6JfwPUIk_Wu_0IQ8Ly6vQDhyfZYcg",
-  authDomain: "qotw-270106.firebaseapp.com",
+  authDomain: "app.qotw.net",
   databaseURL: "https://qotw-270106.firebaseio.com",
   projectId: "qotw-270106",
   storageBucket: "qotw-270106.appspot.com",

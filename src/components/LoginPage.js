@@ -24,22 +24,6 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
     })
   }
 
-  const emailLogin = (values) => {
-    firebase.auth().signInWithEmailAndPassword(values.email, values.password).catch((e) => {
-      switch (e.code) {
-        case "auth/user-not-found":
-          updateError("Email not found.")
-          break
-        case "auth/wrong-password":
-          updateError("Incorrect password.")
-          break
-        default:
-          updateError(e.message)
-      }
-      updateError(e.message)
-    })
-  }
-
   if (!isEmpty(auth)) {
     const { from } = location.state || { from : { pathname: "/"}}
     return <Redirect to={from}/>
