@@ -16,9 +16,10 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY)
 
 
 const mailTransport = nodemailer.createTransport({
-  service: "gmail",
+  host: "mail.qotw.net",
+  secure: true,
   auth: {
-    user: functions.config().mail.email,
+    user: functions.config().mail.user,
     pass: functions.config().mail.password,
   }
 })
@@ -141,7 +142,7 @@ const sendMailinglistEmail = async (data, context) => {
   email.send({
     template: "newsletter",
     message: {
-      to: ['alding@commschool.org'],
+      to: recipientEmails,
     },
     locals: {
       content: content,
