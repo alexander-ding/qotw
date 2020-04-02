@@ -15,6 +15,7 @@ import HomePage from "./HomePage"
 import LoginPage from './LoginPage'
 import Navbar from './Navbar'
 import NotFoundPage from './NotFoundPage'
+import PrivacyPage from './PrivacyPage'
 import ProfilePage from './ProfilePage'
 import RegisterPage from './RegisterPage'
 import SubmitQuotePage from './SubmitQuotePage'
@@ -25,6 +26,7 @@ const App = () => (
       <Route path="/Login"><LoginPage/></Route>
       <Route path="/AlumLogin"><AlumLoginPage/></Route>
       <Route path="/Register/:email"><RegisterPage/></Route>
+      <Route path="/Privacy"><PrivacyPage/></Route>
       <Route path="*">
         <Navbar/>
         <Container fluid>
