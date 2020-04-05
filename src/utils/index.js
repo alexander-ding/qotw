@@ -12,7 +12,6 @@ const preferentialVoting = (votes, length, candidates) => {
   var round = 0
   while (round < length) {
     var currentVotes = Array.apply(null, Array(length)).map((_, index) => ({index, vote: 0}))
-    console.log(currentVotes)
     votes.forEach((vote) => {
       if (!vote.exhausted()) {
         currentVotes[vote.currentVote()].vote += 1;
@@ -56,7 +55,6 @@ export const rankQuotes = (quotes) => {
     return quotes
   }
   var votes = reassembleVotes(quotes, quotes.length)
-  console.log(votes)
   var ranking = []
   var candidates = Array.apply(null, Array(quotes.length)).map((_, i) => i)
   do {

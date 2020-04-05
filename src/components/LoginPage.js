@@ -38,7 +38,7 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
         <div className="text-center">
           <h5>Commonwealth Students</h5>
           <Button block onClick={googleLogin}>Login with Google</Button>
-          <small id="emailHelp" class="form-text text-muted">Your submissions will be anonymous. Only the quotemasters can see who you are.</small>
+          <small id="emailHelp" className="form-text text-muted">Your submissions will be anonymous. Only the quotemasters can see who you are.</small>
         </div>
         <br/>
         <div className="text-center">

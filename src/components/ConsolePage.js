@@ -321,7 +321,7 @@ const enhance = compose(
       getQuotes({status: "pending"}).then((result) => {
         this.setState({
           data: (Object.assign(result.data, {
-          quotes: rankQuotes(result.data.quotes),
+          quotes: rankQuotes(result.data.quotes.filter(quote => quote.nominated)),
         }))})
       })
     }

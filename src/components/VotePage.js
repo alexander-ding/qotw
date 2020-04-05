@@ -65,9 +65,15 @@ class VotePage extends React.Component {
 
     getQuotes({status: "pending"}).then((result) => {
       const userEmail = this.firebase.auth().currentUser.email
+      
+      const data = {
+        ...result.data,
+        quotes: result.data.quotes.filter(quote => quote.nominated)
+      }
+
       this.setState({
         isLoaded: true,
-        data: orderData(result.data, userEmail),
+        data: orderData(data, userEmail),
         isInEditMode: !result.data.voters.includes(userEmail),
         isPristine: !result.data.voters.includes(userEmail),
       })

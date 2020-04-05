@@ -169,7 +169,7 @@ exports.publish = functions.https.onCall(async (data, context) => {
   const current = await admin.firestore().collection('publications').where('status', '==', 'current').get()
     .then(snapshot => {
       if (snapshot.size !== 1) {
-        throw new Error(`Error with publications: more more than one current publication`)
+        throw new Error(`Error with publications: more than one current publication`)
       }
       return snapshot.docs[0]
     })
