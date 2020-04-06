@@ -360,7 +360,7 @@ exports.vote = functions.https.onCall((data, context) => {
     }
     const quoteRef = admin.firestore().collection('quotes').doc(id)
 
-    quoteRef.update({
+    return quoteRef.update({
       votes: admin.firestore.FieldValue.arrayUnion({email, vote: index})
     })
   }
@@ -378,22 +378,21 @@ exports.vote = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError("invalid-argument", `You cannot vote twice in the same vote`)
       }
 
-      votes.forEach(handleVote(doc.data(), email))
-      return
+      return Promise.all(votes.map(handleVote(doc.data(), email))).then(() => {
+        return email
+      })
     }).catch(console.error)
   
   const promise = admin.auth().getUser(context.auth.uid)
   .then(userRecord => {
-    handlePublication(userRecord.email)
-    return userRecord.email
+    return handlePublication(userRecord.email)
   }).catch(err =>
     {throw err}
   )
   return promise.then((email) => {
-    publicationRef.update({
+    return publicationRef.update({
       voters: admin.firestore.FieldValue.arrayUnion(email),
     })
-    return
   }).catch(err => 
     { throw err;}  
   )
@@ -412,14 +411,13 @@ exports.changeVote = functions.https.onCall((data, context) => {
       throw new functions.https.HttpsError("invalid-argument", `Quote with id ${id} is not in publication ${publicationID}`)
     }
     const quoteRef = admin.firestore().collection('quotes').doc(id)
-    quoteRef.get().then(doc => {
+    return quoteRef.get().then(doc => {
       const votes = doc.data().votes.filter((vote) => vote.email !== email)
-      quoteRef.update({
+      return quoteRef.update({
         votes: votes.concat([{email, vote: index}])
       })
-      return
+      
     }).catch(console.error)
-    return
   }
 
   const publicationRef = admin.firestore().collection('publications').doc(publicationID)
@@ -432,14 +430,12 @@ exports.changeVote = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError("invalid-argument", `Publication ${publicationID} is not being voted on`)
       }
 
-      votes.forEach(handleVote(doc.data(), email))
-      return
+      return votes.map(handleVote(doc.data(), email))
     }).catch(console.error)
   
   return admin.auth().getUser(context.auth.uid)
   .then(userRecord => {
-    handlePublication(userRecord.email)
-    return userRecord.email
+    return handlePublication(userRecord.email)
   }).catch(console.error)
 })
 

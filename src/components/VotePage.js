@@ -27,7 +27,6 @@ const getListStyle = isDraggingOver => ({
 
 const orderData = (data, userEmail) => {
   if (!data.voters.includes(userEmail)) {
-    console.log("Returning as is")
     return data
   }
   const votes = data.quotes.map(quote => 
@@ -108,7 +107,7 @@ class VotePage extends React.Component {
     const votes = this.state.data.quotes.map(quote => quote.id)
     const publicationID = this.state.data.id
     if (this.state.isPristine) {
-      const vote = this.firebase.functions().httpsCallable('vote');
+      const vote = this.firebase.functions().httpsCallable('vote')
       vote({votes, publicationID}).then(
         this.setState({
           isPristine: false,
