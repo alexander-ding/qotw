@@ -27,15 +27,20 @@ const getListStyle = isDraggingOver => ({
 
 const orderData = (data, userEmail) => {
   if (!data.voters.includes(userEmail)) {
+    console.log("Returning as is")
     return data
   }
-  
-  const quoteIndices = data.quotes.map(quote => 
+  const votes = data.quotes.map(quote => 
     quote.votes.filter(({email}) => email === userEmail)[0].vote
   )
+  
+  let quotes = [].fill(0, 0, votes.length)
+  votes.forEach((vote, index) => {
+    quotes[vote] = data.quotes[index]
+  })
 
   
-  return Object.assign(data, {quotes: quoteIndices.map(i => data.quotes[i])})
+  return Object.assign(data, {quotes: quotes})
 }
 
 class VotePage extends React.Component {
