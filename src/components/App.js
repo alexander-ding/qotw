@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import { Route, Switch } from 'react-router-dom'
+import { compose, lifecycle } from 'recompose'
 import AuthIsLoaded from '../utils/AuthIsLoaded'
 import PrivateRoute from '../utils/PrivateRoute'
 import AboutPage from './AboutPage'
@@ -50,4 +51,18 @@ const App = () => (
     { process.env.NODE_ENV === "production" ? null : <DevTools/> }
   </React.Fragment>
 )
-export default App
+
+const enhance = compose(
+  lifecycle({
+    componentDidMount() {
+      window.gapi.load('auth2', () => {
+        window.gapi.auth2.init({
+          client_id: '47305262498-mqvh1bfdt6clmrqsjti4erasvvjumnof.apps.googleusercontent.com',
+          hosted_domain: 'commschool.org',
+        })
+      })
+    }
+  })
+)
+
+export default enhance(App)

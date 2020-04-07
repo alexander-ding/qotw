@@ -2,15 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { firestoreConnect, isLoaded, withFirestore } from 'react-redux-firebase'
 import { useHistory, withRouter } from 'react-router-dom'
+import { useLastLocation } from 'react-router-last-location'
 import { compose } from 'recompose'
 import NotFoundPage from './NotFoundPage'
 import QuoteForm from './QuoteForm'
 import SplashScreen from './SplashScreen'
 
-
-const EditQuotePage = ({firestore, auth, profile, quotes, location}) => {
+const EditQuotePage = ({firestore, auth, profile, quotes}) => {
   const history = useHistory()
-  const { from } = location.state || { from : { pathname: "/"}}
+  const lastLocation = useLastLocation()
+  const from = lastLocation ? lastLocation : '/'
+  console.log(lastLocation)
 
   if (!isLoaded(auth) || !isLoaded(profile)) {
     return <SplashScreen/>

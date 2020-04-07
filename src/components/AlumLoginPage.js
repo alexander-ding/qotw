@@ -4,27 +4,12 @@ import { connect } from 'react-redux'
 import { isEmpty, withFirebase, withFirestore } from 'react-redux-firebase'
 import { Redirect, withRouter } from 'react-router-dom'
 import { compose, withState } from 'recompose'
+import { loginEmail } from '../actions'
 import logo from "../images/logo.png"
 import LoginForm from './LoginForm'
 import "./LoginPage.css"
 
-const LoginPage = ({firebase, firestore, auth, location, error, updateError}) => {
-  const emailLogin = (values) => {
-    firebase.auth().signInWithEmailAndPassword(values.email, values.password).catch((e) => {
-      switch (e.code) {
-        case "auth/user-not-found":
-          updateError("Email not found.")
-          break
-        case "auth/wrong-password":
-          updateError("Incorrect password.")
-          break
-        default:
-          updateError(e.message)
-      }
-      updateError(e.message)
-    })
-  }
-
+const LoginPage = ({firebase, firestore, auth, location, error, login}) => {
   if (!isEmpty(auth)) {
     const { from } = location.state || { from : { pathname: "/"}}
     return <Redirect to={from}/>
@@ -40,7 +25,7 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
         {error ? <Alert variant="danger">{error}</Alert> : null}
         <div >
           <h5 className="text-center">Alumni</h5>
-          <LoginForm onSubmit={emailLogin}/>
+          <LoginForm onSubmit={login}/>
         </div>
       </div>
     </Container>
@@ -53,9 +38,12 @@ const enhance = compose(
   withRouter,
   withState("error", "updateError", null),
   connect(
-    ({ firebase: { auth, profile } }) => ({
-      auth,
-      profile
+    (state) => ({
+      auth: state.firebase.auth,
+      profile: state.firebase.profile,
+      error: state.login,
+    }), dispatch => ({
+      login: (values) => dispatch(loginEmail(values.email, values.password))
     })
   ),
   withFirebase,

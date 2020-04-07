@@ -3,6 +3,7 @@ import { combineReducers } from "redux"
 import { firestoreReducer } from 'redux-firestore'
 import { reducer as formReducer } from 'redux-form'
 import locationReducer from './location'
+import loginReducer from './login'
 import persist from "./persist"
 
 export default combineReducers({
@@ -10,5 +11,5 @@ export default combineReducers({
   firebase: persist('firebaseState', [], firebaseReducer),
   firestore: persist('firestoreState', [], firestoreReducer),
   location: locationReducer,
+  login: loginReducer,
 })
-

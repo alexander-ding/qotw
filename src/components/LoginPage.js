@@ -4,25 +4,12 @@ import { connect } from 'react-redux'
 import { isEmpty, withFirebase, withFirestore } from 'react-redux-firebase'
 import { Redirect, useHistory, withRouter } from 'react-router-dom'
 import { compose, withState } from 'recompose'
+import { login } from '../actions'
 import logo from "../images/logo.png"
 import "./LoginPage.css"
 
-const LoginPage = ({firebase, firestore, auth, location, error, updateError}) => {
+const LoginPage = ({firebase, firestore, error, login, auth, location}) => {
   const history = useHistory()
-  const googleLogin = () => {
-    firebase.login({
-      provider: 'google',
-      type: 'popup',
-    }).catch(e => {
-      switch (e.code) {
-        case "auth/popup-closed-by-user":
-          updateError("Pop up was closed by user. Try again?")
-          break
-        default:
-          updateError(e.message)
-      }
-    })
-  }
 
   if (!isEmpty(auth)) {
     const { from } = location.state || { from : { pathname: "/"}}
@@ -37,7 +24,7 @@ const LoginPage = ({firebase, firestore, auth, location, error, updateError}) =>
         {error ? <Alert variant="danger">{error}</Alert> : null}
         <div className="text-center">
           <h5>Commonwealth Students</h5>
-          <Button block onClick={googleLogin}>Login with Google</Button>
+          <Button block onClick={login}>Login with Google</Button>
           <small id="emailHelp" className="form-text text-muted">Your submissions will be anonymous. Only the quotemasters can see who you are.</small>
         </div>
         <br/>
@@ -55,9 +42,12 @@ const enhance = compose(
   withRouter,
   withState("error", "updateError", null),
   connect(
-    ({ firebase: { auth, profile } }) => ({
-      auth,
-      profile
+    (state) => ({
+      auth: state.firebase.auth,
+      profile: state.firebase.profile,
+      error: state.login,
+    }), dispatch => ({
+      login: () => dispatch(login()),
     })
   ),
   withFirebase,

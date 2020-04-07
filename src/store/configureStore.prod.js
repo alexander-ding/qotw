@@ -1,4 +1,6 @@
+import { getFirebase } from 'react-redux-firebase'
 import { applyMiddleware, compose, createStore } from 'redux'
+import { getFirestore } from 'redux-firestore'
 import { persistReducer, persistStore } from 'redux-persist'
 import localStorage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
@@ -17,7 +19,9 @@ const configureStore = preloadedState => {
     persistedReducer,
     preloadedState,
     compose(
-      applyMiddleware(thunk),
+      applyMiddleware(
+        thunk.withExtraArgument({getFirebase, getFirestore}), 
+      ),
       enhanceStore,
     )
   )
