@@ -10,7 +10,7 @@ const ReduxFormControl = ({input, meta, ...props}) => {
 
 let SignupForm = ({pristine, submitting, handleSubmit, passwordsMatch}) => {
   return (
-  <Form onSubmit={handleSubmit}>
+  <Form onSubmit={handleSubmit} className="d-flex flex-column">
     <Form.Group controlId="signupForm.email">
       <Form.Label>Email</Form.Label>
       <Field props={{disabled: true}} name="email" component={ReduxFormControl} type="email" placeholder="Email"/>
@@ -32,7 +32,7 @@ let SignupForm = ({pristine, submitting, handleSubmit, passwordsMatch}) => {
     </Form.Group>
 
     
-    <Button variant="primary" type="submit" disabled={pristine || submitting || !passwordsMatch }>Register</Button>
+    <Button block className="align-self-center" variant="primary" type="submit" disabled={pristine || submitting || !passwordsMatch }>Register</Button>
   </Form>
   )
 }

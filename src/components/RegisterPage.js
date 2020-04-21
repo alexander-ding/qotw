@@ -11,8 +11,9 @@ import SignupForm from './SignupForm'
 import SplashScreen from './SplashScreen'
 
 const RegisterPage = ({firebase, firestore, auth, profile, meta, email, error, updateError}) => {
+  console.log(meta)
   const history = useHistory()
-  if (!isLoaded(auth) || !isLoaded(profile) || !isLoaded(meta)) {
+  if (!isLoaded(auth) || !isLoaded(profile) || !isLoaded(meta) || !meta.invite) {
     return <SplashScreen/>
   }
   if (!meta.invite.emails.includes(email)) {
@@ -47,8 +48,8 @@ const RegisterPage = ({firebase, firestore, auth, profile, meta, email, error, u
 
   return (
     <Container fluid className="login-background">
-    <div className="login-container">
-      <img src={logo} alt="logo" width="70" height="70" className="d-inline-block mb-4" style={{margin: 'auto'}}/>
+    <div className="login-container d-flex flex-column">
+      <img src={logo} alt="logo" width="70" height="70" className="d-inline-block mb-4 align-self-center" style={{margin: 'auto'}}/>
       <h3 className="text-center mb-3">Complete registration</h3>
       {error ? <Alert variant="danger">{error}</Alert> : null}
         <SignupForm email={email} onSubmit={handleSubmit}/>
