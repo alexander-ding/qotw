@@ -12,7 +12,6 @@ const EditQuotePage = ({firestore, auth, profile, quotes}) => {
   const history = useHistory()
   const lastLocation = useLastLocation()
   const from = lastLocation ? lastLocation : '/'
-  console.log(lastLocation)
 
   if (!isLoaded(auth) || !isLoaded(profile)) {
     return <SplashScreen/>

@@ -1,7 +1,6 @@
 export const login = () => {
   return (dispatch, getState, {getFirebase}) => {
     window.gapi.auth2.getAuthInstance().signIn().then(user => {
-      console.log("A")
       if (user.getHostedDomain() !== "commschool.org") {
         dispatch(loginError("You must log in with a @commschool.org email"))
         return

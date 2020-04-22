@@ -11,7 +11,6 @@ import SignupForm from './SignupForm'
 import SplashScreen from './SplashScreen'
 
 const RegisterPage = ({firebase, firestore, auth, profile, meta, email, error, updateError}) => {
-  console.log(meta)
   const history = useHistory()
   if (!isLoaded(auth) || !isLoaded(profile) || !isLoaded(meta) || !meta.invite) {
     return <SplashScreen/>
