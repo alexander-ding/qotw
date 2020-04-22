@@ -27,9 +27,6 @@ const mailTransport = nodemailer.createTransport({
 const verifyEmail = (email) => (email.split('@')[1] === "commschool.org")
 
 exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
-  if (!verifyEmail(user.email)) {
-    return
-  }
   const recipientEmail = user.email;
   const email = new Email({
     message: {
@@ -53,11 +50,6 @@ exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 })
 
 exports.createUserSettings = functions.auth.user().onCreate((user) => {
-  if (!verifyEmail(user.email)) {
-    return admin.firestore().collection('users').doc(user.uid).delete().then(() => {
-      return admin.auth().deleteUser(user.uid)
-    })
-  }
   if (user.displayName) {
     return admin.firestore().collection('users/').doc(user.uid).set({
       isNewsletterSubscribe: true,
