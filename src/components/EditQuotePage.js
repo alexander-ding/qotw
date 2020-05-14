@@ -8,7 +8,7 @@ import NotFoundPage from './NotFoundPage'
 import QuoteForm from './QuoteForm'
 import SplashScreen from './SplashScreen'
 
-const EditQuotePage = ({firestore, auth, profile, quotes}) => {
+const EditQuotePage = ({firestore, auth, profile, quote}) => {
   const history = useHistory()
   const lastLocation = useLastLocation()
   const from = lastLocation ? lastLocation : '/'
@@ -16,13 +16,12 @@ const EditQuotePage = ({firestore, auth, profile, quotes}) => {
   if (!isLoaded(auth) || !isLoaded(profile)) {
     return <SplashScreen/>
   }
-  if (!isLoaded(quotes)) {
+  if (!isLoaded(quote)) {
     return <SplashScreen/>
   }
-  if (quotes.length !== 1) {
+  if (!quote) {
     return <NotFoundPage/>
   }
-  const quote = quotes[0]
   const canEditQuote = profile.isModerator
                     || (!quote.inPublication 
                       && profile.email === quote.submittedBy)
@@ -46,11 +45,11 @@ const EditQuotePage = ({firestore, auth, profile, quotes}) => {
 const enhance = compose(
   withRouter,
   withFirestore,
-  firestoreConnect ((props) => [{ collection: 'quotes', doc: props.match.params.id}]),
+  firestoreConnect ((props) => [{ collection: 'quotes', doc: props.match.params.id, storeAs: `quote${props.match.params.id}`}]),
   connect((state, props) => ({
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    quotes: state.firestore.ordered.quotes,
+    quote: state.firestore.data[`quote${props.match.params.id}`],
   })),
 )
 

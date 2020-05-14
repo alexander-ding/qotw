@@ -228,6 +228,7 @@ exports.publish = functions.https.onCall(async (data, context) => {
         }
         Promise.all(promises).then(() => {
           publication.objectID = current.id
+          publication.email.content = null
           const index = client.initIndex("publications")
           index.saveObject(publication).catch(console.error)
           return

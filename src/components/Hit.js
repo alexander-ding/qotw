@@ -1,16 +1,24 @@
 import dateFormat from 'dateformat'
 import React from 'react'
 import { Accordion, Button, Card } from "react-bootstrap"
+import { connect } from 'react-redux'
+import { firestoreConnect, isLoaded } from 'react-redux-firebase'
+import { compose } from 'recompose'
 import Quotes from './Quotes'
-const Hit = ({hit}) => {
+import SplashScreen from './SplashScreen'
+
+const Hit = ({hit, emails}) => {
+  if (hit.email && (!isLoaded(emails) || !emails || !emails[hit.email.id])) {
+    return <SplashScreen/>
+  }
   const emailSection = hit.email ?
     <Card>
         <Accordion.Toggle as={Button} style={{textAlign: 'left'}} variant="link" eventKey="email">
-          QOTW: {hit.email.title}
+          QOTW: {emails[hit.email.id].title}
         </Accordion.Toggle>
       <Accordion.Collapse eventKey="email">
         <Card.Body>
-          <Card.Text className="multi-line-display">{hit.email.content}</Card.Text>
+          <Card.Text className="multi-line-display">{emails[hit.email.id].content}</Card.Text>
         </Card.Body>
       </Accordion.Collapse>
     </Card> :
@@ -41,4 +49,14 @@ const Hit = ({hit}) => {
   )
 }
 
-export default Hit
+const enhance = compose(
+  firestoreConnect(props => [{
+    collection: 'emails',
+    doc: props.hit.email.id,
+  }]),
+  connect(state => ({
+    emails: state.firestore.data.emails,
+  })),
+)
+
+export default enhance(Hit)
