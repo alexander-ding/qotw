@@ -7,10 +7,6 @@ const ReduxFormControl = ({input, meta, ...props}) => {
   return <Form.Control {...props} {...input} />
 }
 
-const ReduxFormCheck = ({input, meta, ...props}) => {
-  return <Form.Check {...props} {...input} />
-}
-
 let AddQuoteMasterForm = ({pristine, submitting, handleSubmit, emailsMatch}) => {
   return (
   <Form onSubmit={handleSubmit}>

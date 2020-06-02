@@ -3,9 +3,6 @@ import { Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { connect } from 'react-redux'
 import { Field, formValueSelector, reduxForm } from 'redux-form'
-const ReduxFormControl = ({input, meta, ...props}) => {
-  return <Form.Control {...props} {...input} />
-}
 
 const ReduxFormCheck = ({input, meta, ...props}) => {
   return <Form.Check {...props} {...input} />

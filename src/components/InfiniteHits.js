@@ -5,7 +5,7 @@ import Hit from './Hit';
 
 class InfiniteHits extends Component {
   onSentinelIntersection = entries => {
-    const { hasMore, refineNext } = this.props;
+    const { refineNext } = this.props;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         refineNext()

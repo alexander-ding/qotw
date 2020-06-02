@@ -38,7 +38,7 @@ exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
   email.send({
     template: "welcome",
     message: {
-      to: recipientEmail,
+      bcc: recipientEmail,
     },
     locals: {
       name: user.displayName,
@@ -91,7 +91,7 @@ exports.invite = functions.https.onCall(async (data, context) => {
   email.send({
     template: "invite",
     message: {
-      to: data.email,
+      bcc: data.email,
     },
     locals: {
       email: data.email,
@@ -134,7 +134,7 @@ const sendMailinglistEmail = async (data, context) => {
   email.send({
     template: "newsletter",
     message: {
-      to: recipientEmails,
+      bcc: recipientEmails,
     },
     locals: {
       content: content,

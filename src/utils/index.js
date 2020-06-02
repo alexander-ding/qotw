@@ -12,11 +12,11 @@ const preferentialVoting = (votes, length, candidates) => {
   var round = 0
   while (round < length) {
     var currentVotes = Array.apply(null, Array(length)).map((_, index) => ({index, vote: 0}))
-    votes.forEach((vote) => {
+    for (let vote of votes) {
       if (!vote.exhausted()) {
         currentVotes[vote.currentVote()].vote += 1;
       }
-    })
+    }
     var sumVotes = currentVotes.reduce((a, b) => (a+b.vote), 0)
     currentVotes.sort((a, b) => (b.vote-a.vote))
     if (sumVotes === 0) {
