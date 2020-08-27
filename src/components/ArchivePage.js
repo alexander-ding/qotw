@@ -6,7 +6,7 @@ import InfiniteHits from './InfiniteHits'
 import SearchBox from './SearchBox'
 
 const ArchivePage = () => {
-  const searchClient = algoliasearch(process.env.REACT_APP_ALGOLIA_APP_ID, process.env.REACT_APP_ALGOLIA_API_KEY)
+  const searchClient = algoliasearch('DLRD60KG2Y', '19c42c13cf8a5448a7f545ab8e80d2fe')
 
   return (
     <div className="main">
