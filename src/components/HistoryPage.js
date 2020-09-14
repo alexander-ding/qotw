@@ -51,10 +51,6 @@ const HistoryPage = ({firebase, firestore, auth, profile, quotes, data}) => {
   
   if (!isLoaded(auth) || !isLoaded(profile) || !data) {
     return <SplashScreen/>
-  } else {
-    if (!profile.isModerator) {
-      history.push("/")
-    }
   }
   if (!isLoaded(quotes)) {
     return <SplashScreen/>
