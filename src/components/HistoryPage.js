@@ -47,7 +47,6 @@ const PastQuote = ({quote}) => {
 }
 
 const HistoryPage = ({firebase, firestore, auth, profile, quotes, data}) => {
-  const history = useHistory()
   
   if (!isLoaded(auth) || !isLoaded(profile) || !data) {
     return <SplashScreen/>
