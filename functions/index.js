@@ -254,7 +254,9 @@ exports.getQuotes = functions.https.onCall(async (data, context) => {
   const retData = await admin.firestore().collection('publications').where("status", "==", status)
     .get()
     .then((snapshot) => {
-      if (snapshot.size !== 1) {
+      if(snapshot.size == 0) {
+        throw new Error(`Error with publications: no publication found`)
+      } else if (snapshot.size !== 1) {
         throw new Error(`Error with publications: more than one ${status} publication`)
       }
       return Object.assign(snapshot.docs[0].data(), {
