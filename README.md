@@ -42,6 +42,8 @@ And populate the resulting `.env` file with real values (which I will provide yo
 
 My preferred setup is to have two shells open to the root directory of the project. On one, run `npm start` for the React development server. On another, run `firebase emulators:start --only functions` to start the function emulators.
 
+If you also want to run an emulator of firestore us the command `firebase emulators:start --only functions,firestore --export-on-exit=./saved-data --import=./saved-data` instead.
+
 You may access the [Firebase cloud console](https://console.firebase.google.com/) to play with the database or the [Algolia console](https://www.algolia.com/apps/DLRD60KG2Y) to work with the search indices (sign in with the account that I'll provide you with). 
 
 To deploy the build, simply run
