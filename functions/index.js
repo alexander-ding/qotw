@@ -255,7 +255,7 @@ exports.getQuotes = functions.https.onCall(async (data, context) => {
     .get()
     .then((snapshot) => {
       if(snapshot.size === 0) {
-        throw new Error(`Error with publications: no publication found`)
+        throw new Error(`Error with publications: no publication with status '${status}' found`)
       } else if (snapshot.size !== 1) {
         throw new Error(`Error with publications: more than one ${status} publication`)
       }
