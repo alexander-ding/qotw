@@ -1,7 +1,7 @@
 
 import Icon from '@material-ui/core/Icon'
 import 'firebase/functions'
-import React, { useState } from 'react'
+import React from 'react'
 import { Alert, Button, ButtonGroup, ButtonToolbar, Card, Col, ListGroup, Modal, Row, Tab, Tabs } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { firestoreConnect, isLoaded, withFirebase, withFirestore } from 'react-redux-firebase'
@@ -92,13 +92,12 @@ let AcceptedQuote = ({quote, name, nominated, firestore}) => {
 
 AcceptedQuote = withFirestore(AcceptedQuote)
 
-const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, dispatch,
+const ConsolePage = ({firebase, state, firestore, auth, profile, quotes, users, meta, dispatch,
   warning, updateWarning, info, updateInfo, data, activeKey, updateActiveKey, publishForm,
   showTopQuotes, updateShowTopQuotes, showNominations, updateShowNominations, changePublishForm,
   showConfirm, updateShowConfirm,
 }) => {
   const history = useHistory()
-  const state = useState()
 
   if (!isLoaded(auth) || !isLoaded(profile)) {
     return <SplashScreen/>
@@ -123,10 +122,7 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   const quotesApproved = quotes.filter(quote => quote.approvedByModerator)
 
   const handleSend = () => {
-    
-    const selector = formValueSelector('publishForm')
-    
-    if (selector(state, 'publish') && quotesUnapproved.length) {
+    if (formPublish && quotesUnapproved.length) {
       updateWarning("You must process all current submissions before publishing.")
       return
     }
@@ -141,6 +137,7 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
   }
 
   const handleSubmit = (values) => {
+    console.log()
     if (values.publish) {
       const publish = firebase.functions().httpsCallable('publish')
       handleReset()
