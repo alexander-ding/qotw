@@ -1,6 +1,4 @@
-import { FormatQuoteTwoTone } from '@material-ui/icons';
 import React from 'react'
-import { Card } from 'react-bootstrap'
 
 const VoteDisplay = ({votes, profile}) => {
     if(profile && profile.isModerator){
