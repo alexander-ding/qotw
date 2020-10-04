@@ -220,7 +220,7 @@ const ConsolePage = ({firebase, firestore, auth, profile, quotes, users, meta, d
           <Card.Body>
           <Card.Text>Quote ranking based on current votes.</Card.Text>
           <Card.Text>{`${data.voters.length} vote(s) recorded`}</Card.Text>
-          <Quotes quotes={data.quotes}/>
+          <Quotes quotes={data.quotes} profile={profile} auth={auth}/>
           </Card.Body>
         </Card>
       </Tab>
