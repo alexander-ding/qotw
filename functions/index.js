@@ -102,6 +102,7 @@ exports.invite = functions.https.onCall(async (data, context) => {
 })
 
 const sendMailinglistEmail = async (data, context) => {
+  console.log("Starting email send")
   if (!context.auth.uid) {
     throw new functions.https.HttpsError("permission-denied", `Only authenticated users can send a mailing list email`)
   }
@@ -118,11 +119,16 @@ const sendMailinglistEmail = async (data, context) => {
   } catch (e) {
     throw new functions.https.HttpsError("invalid-argument", `Must supply content and title as arguments`)
   }
+
+  console.log(`Title: ${title}, Content: ${content}`)
+
   const recipientEmails = await admin.firestore().collection('users').where('isNewsletterSubscribe', '==', true).get()
     .then((snapshot) => {
       const recipientEmails = snapshot.docs.map(doc => doc.data().email)
       return recipientEmails
     })
+
+    console.log(`To ${JSON.stringify(recipientEmails)}`)
 
   const email = new Email({
     message: {
@@ -143,6 +149,7 @@ const sendMailinglistEmail = async (data, context) => {
     }
   }).catch(console.error)
 
+  console.log("Email sent")
   return null;
 }
 
