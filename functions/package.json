@@ -17,8 +17,8 @@
     "@material-ui/icons": "^4.9.1",
     "algoliasearch": "^4.1.0",
     "email-templates": "^7.0.4",
-    "firebase-admin": "^8.9.2",
-    "firebase-functions": "^3.3.0",
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^3.24.1",
     "fs": "0.0.1-security",
     "nodemailer": "^6.4.4",
     "package.json": "^2.0.1"
